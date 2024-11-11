@@ -12,7 +12,6 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -20,10 +19,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { Switch } from "@/components/ui/switch"
-// import { Label } from "@/components/ui/label"
-import { Eye, EyeOff, Trash2, Plus, Sun, Moon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Sun, Moon } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+import { categories } from "@/data/categories";
+import { CategorySection } from "@/components/CategorySection";
+import { Card, CardContent } from "./ui/card";
 
 type Item = {
   id: number;
@@ -35,48 +35,196 @@ type Item = {
   currentQuantity: number;
 };
 
-// type Order = {
-//   id: number
-//   date: string
-//   items: { itemId: number; quantity: number }[]
-// }
-
-const categories = [
-  "Flour & Baking Supplies",
-  "Dairy & Eggs",
-  "Chocolate & Sweets",
-  "Fruits & Fillings",
-  "Packaging",
-];
-
 export function BakeryOrderManagement() {
   const [items, setItems] = useState<Item[]>([
     {
       id: 1,
-      name: "All-Purpose Flour",
-      category: "Flour & Baking Supplies",
-      parLevel: 50,
-      image: "https://example.com/flour.jpg",
+      name: "Cake boards - 1/2 slab",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/cake_board_half_slab.jpg",
       visible: true,
-      currentQuantity: 30,
+      currentQuantity: 0,
     },
     {
       id: 2,
-      name: "Eggs",
-      category: "Dairy & Eggs",
-      parLevel: 100,
-      image: "https://example.com/eggs.jpg",
+      name: 'Cake boards - round silver cake 6"',
+      category: "Packaging",
+      parLevel: 2,
+      image: "https://example.com/cake_board_round_6.jpg",
       visible: true,
-      currentQuantity: 80,
+      currentQuantity: 0,
     },
     {
       id: 3,
-      name: "Chocolate Chips",
-      category: "Chocolate & Sweets",
-      parLevel: 25,
-      image: "https://example.com/chocolate-chips.jpg",
+      name: 'Cake boards - round silver cake 10"',
+      category: "Packaging",
+      parLevel: 3,
+      image: "https://example.com/cake_board_round_10.jpg",
       visible: true,
-      currentQuantity: 10,
+      currentQuantity: 0,
+    },
+    {
+      id: 4,
+      name: 'Cake boards - round silver cake 12"',
+      category: "Packaging",
+      parLevel: 2,
+      image: "https://example.com/cake_board_round_12.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 5,
+      name: 'Board Cake Round With Gold Tab 3.25"',
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/cake_board_round_gold_tab.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 6,
+      name: "Boxes - 5 x 5 x 5",
+      category: "Packaging",
+      parLevel: 2,
+      image: "https://example.com/box_5x5x5.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 7,
+      name: "Boxes - 8 x 8 x 5",
+      category: "Packaging",
+      parLevel: 2,
+      image: "https://example.com/box_8x8x5.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 8,
+      name: "Boxes - 10 x 10 x 5 (cake)",
+      category: "Packaging",
+      parLevel: 4,
+      image: "https://example.com/box_10x10x5.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 9,
+      name: "Boxes - 12 x 12 x 6",
+      category: "Packaging",
+      parLevel: 2,
+      image: "https://example.com/box_12x12x6.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 10,
+      name: "Boxes - 9 x 9 x 4",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/box_9x9x4.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 11,
+      name: "Brown 'craft' paper bags 6 x 3 x 11",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/brown_craft_bag_6x3x11.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 12,
+      name: "Brown 'craft' paper bags 8 x 5.5 x 10.5",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/brown_craft_bag_8x5.5x10.5.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 13,
+      name: "Brown 'craft' paper bags 10 x 5 x 13",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/brown_craft_bag_10x5x13.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 14,
+      name: "Brown bag with window",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/brown_bag_window.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 15,
+      name: "Clear 80 x 180 bags",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/clear_80x180_bags.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 16,
+      name: "Panettone bags with window",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/panettone_bag_window.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 17,
+      name: "Panettone bags with ties",
+      category: "Packaging",
+      parLevel: 3,
+      image: "https://example.com/panettone_bag_ties.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 18,
+      name: "Paper bag brown with handles",
+      category: "Packaging",
+      parLevel: 1,
+      image: "https://example.com/paper_bag_brown_handles.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 19,
+      name: "Silicone baking paper",
+      category: "Packaging",
+      parLevel: 3,
+      image: "https://example.com/silicone_baking_paper.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 20,
+      name: "Baking paper 9x11",
+      category: "Packaging",
+      parLevel: 3,
+      image: "https://example.com/baking_paper_9x11.jpg",
+      visible: true,
+      currentQuantity: 0,
+    },
+    {
+      id: 21,
+      name: "Baking paper 25x35.25",
+      category: "Packaging",
+      parLevel: 3,
+      image: "https://example.com/baking_paper_25x35.25.jpg",
+      visible: true,
+      currentQuantity: 0,
     },
   ]);
   const [newItem, setNewItem] = useState<
@@ -251,73 +399,14 @@ export function BakeryOrderManagement() {
             <AnimatePresence>
               {Object.entries(groupItemsByCategory()).map(
                 ([category, categoryItems]) => (
-                  <motion.div
+                  <CategorySection
                     key={category}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <h2 className="text-xl font-semibold mt-4 mb-2">
-                      {category}
-                    </h2>
-                    {categoryItems.map((item) => (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <Card className="shadow-md hover:shadow-lg transition-shadow duration-300 mb-2">
-                          <CardContent className="flex items-center justify-between p-4">
-                            <div className="flex items-center space-x-4">
-                              {item.image ? (
-                                <img
-                                  src={item.image}
-                                  alt={item.name}
-                                  className="w-12 h-12 object-cover rounded"
-                                />
-                              ) : (
-                                <div className="w-12 h-12 bg-gray-200 rounded"></div>
-                              )}
-                              <div>
-                                <h3 className="font-bold">{item.name}</h3>
-                                <p className="text-sm text-gray-500">
-                                  {item.category}
-                                </p>
-                                <p className="text-sm">
-                                  Par Level: {item.parLevel}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex space-x-2">
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => toggleVisibility(item.id)}
-                              >
-                                {item.visible ? (
-                                  <Eye className="h-4 w-4" />
-                                ) : (
-                                  <EyeOff className="h-4 w-4" />
-                                )}
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => {
-                                  setItemToDelete(item.id);
-                                  setIsDeleteConfirmOpen(true);
-                                }}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </motion.div>
+                    category={category}
+                    items={categoryItems}
+                    toggleVisibility={toggleVisibility}
+                    setItemToDelete={setItemToDelete}
+                    setIsDeleteConfirmOpen={setIsDeleteConfirmOpen}
+                  />
                 )
               )}
             </AnimatePresence>
